@@ -1,11 +1,17 @@
 name: pangolin
 services:
   pangolin:
-    image: docker.io/fosrl/pangolin:ee-1.16.2
+    image: docker.io/fosrl/pangolin:ee-postgresql-1.16
     container_name: pangolin
     restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
     env_file:
-      - pangolin.env
+      - env/pangolin.env
+      - env/postgres.env
+    environment:
+      - POSTGRES_CONNECTION_STRING=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/postgres?sslmode=disable
     deploy:
       resources:
         limits:
@@ -53,11 +59,25 @@ services:
     command:
       - --configFile=/etc/traefik/traefik_config.yml
     env_file:
-      - traefik.env
+      - env/traefik.env
     volumes:
       - ./config/traefik:/etc/traefik:ro # Volume to store the Traefik configuration
       - ./config/letsencrypt:/letsencrypt # Volume to store the Let's Encrypt certificates
       - ./config/traefik/logs:/var/log/traefik # Volume to store Traefik logs
+
+  postgres:
+    image: docker.io/library/postgres:18
+    container_name: postgres
+    restart: unless-stopped
+    env_file:
+      - env/postgres.env
+    volumes:
+      - ./config/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   default:
