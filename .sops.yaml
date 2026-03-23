@@ -1,6 +1,6 @@
 # .sops.yaml
 creation_rules:
-  - path_regex: secrets.env
+  - path_regex: \w+.env
     encrypted_regex: "^(SERVER_SECRET|CLOUDFLARE)\\w*$"
     key_groups:
       - age:
