@@ -38,7 +38,7 @@ services:
       - --generateAndSaveKeyTo=/var/config/key
       - --remoteConfig=http://pangolin:3001/api/v1/
     volumes:
-      - ./config/:/var/config
+      - ./config/:/var/config:z
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
@@ -61,9 +61,9 @@ services:
     env_file:
       - env/traefik.env
     volumes:
-      - ./config/traefik:/etc/traefik:ro # Volume to store the Traefik configuration
-      - ./config/letsencrypt:/letsencrypt # Volume to store the Let's Encrypt certificates
-      - ./config/traefik/logs:/var/log/traefik # Volume to store Traefik logs
+      - ./config/traefik:/etc/traefik:z,ro # Volume to store the Traefik configuration
+      - ./config/letsencrypt:/letsencrypt:z # Volume to store the Let's Encrypt certificates
+      - ./config/traefik/logs:/var/log/traefik:z # Volume to store Traefik logs
 
   postgres:
     image: docker.io/library/postgres:18
@@ -72,7 +72,7 @@ services:
     env_file:
       - env/postgres.env
     volumes:
-      - ./config/postgres:/var/lib/postgresql/data
+      - ./config/postgres:/var/lib/postgresql/data:z
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
