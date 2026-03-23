@@ -62,8 +62,8 @@ services:
       - env/traefik.env
     volumes:
       - ./config/traefik:/etc/traefik:z,ro # Volume to store the Traefik configuration
-      - ./config/letsencrypt:/letsencrypt:z # Volume to store the Let's Encrypt certificates
-      - ./config/traefik/logs:/var/log/traefik:z # Volume to store Traefik logs
+      - traefik_letsencrypt:/letsencrypt:z # Volume to store the Let's Encrypt certificates
+      - traefik_logs:/var/log/traefik:z # Volume to store Traefik logs
 
   postgres:
     image: docker.io/library/postgres:18
@@ -72,12 +72,17 @@ services:
     env_file:
       - env/postgres.env
     volumes:
-      - ./config/postgres:/var/lib/postgresql/data:z
+      - postgres_data:/var/lib/postgresql:z
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+volumes:
+  traefik_letsencrypt:
+  traefik_logs:
+  postgres_data:
 
 networks:
   default:
