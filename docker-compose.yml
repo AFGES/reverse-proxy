@@ -5,7 +5,7 @@ services:
     container_name: pangolin
     restart: unless-stopped
     env_file:
-      - secrets.enc.env
+      - secrets.env
     deploy:
       resources:
         limits:
