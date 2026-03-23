@@ -53,7 +53,7 @@ services:
     command:
       - --configFile=/etc/traefik/traefik_config.yml
     env_file:
-      - pangolin.env
+      - traefik.env
     volumes:
       - ./config/traefik:/etc/traefik:ro # Volume to store the Traefik configuration
       - ./config/letsencrypt:/letsencrypt # Volume to store the Let's Encrypt certificates
