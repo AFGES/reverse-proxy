@@ -78,10 +78,24 @@ services:
       timeout: 5s
       retries: 5
 
+  crowdsec:
+    image: docker.io/crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    restart: unless-stopped
+    environment:
+      COLLECTIONS: "crowdsecurity/traefik crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules"
+    volumes:
+      - ./config/crowdsec:/etc/crowdsec:z
+      - crowdsec_db:/var/lib/crowdsec/data:z
+      - traefik_logs:/var/log/traefik:z,ro
+    ports:
+      - 8080:8080 # Local API port for bouncer communication
+
 volumes:
   traefik_letsencrypt:
   traefik_logs:
   postgres_data:
+  crowdsec_db:
 
 networks:
   default:
