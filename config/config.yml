@@ -3,7 +3,7 @@
 
 gerbil:
   start_port: 51820
-  base_endpoint: "pangolin.afges.eu"
+  base_endpoint: "82.127.203.244"
 
 app:
   dashboard_url: "https://pangolin.afges.eu"
@@ -16,6 +16,7 @@ domains:
     base_domain: "afges.eu"
 
 server:
+  trust_proxy: 2
   cors:
     origins: ["https://pangolin.afges.eu"]
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
