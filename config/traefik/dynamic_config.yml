@@ -9,6 +9,7 @@ http:
         crowdsec:
           enabled: true
           crowdsecLapiHost: crowdsec:8080
+          crowdsecLapiKey: {{ env "CROWDSEC_LAPI_KEY" }}
     redirect-to-https:
       redirectScheme:
         scheme: https
