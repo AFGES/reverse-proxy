@@ -42,7 +42,7 @@ services:
       - NET_ADMIN
       - SYS_MODULE
     ports:
-      - 51830:51830/udp
+      - 51820:51820/udp
       - 21820:21820/udp
       - 443:443
       - 80:80

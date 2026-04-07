@@ -2,8 +2,8 @@
 # https://docs.pangolin.net/
 
 gerbil:
-  start_port: 51830
-  base_endpoint: "82.127.203.244"
+  start_port: 51820
+  base_endpoint: "10.20.0.1"
 
 app:
   dashboard_url: "https://pangolin.afges.eu"
