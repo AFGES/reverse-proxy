@@ -2,7 +2,7 @@
 # https://docs.pangolin.net/
 
 gerbil:
-  start_port: 51820
+  start_port: 51830
   base_endpoint: "82.127.203.244"
 
 app:
